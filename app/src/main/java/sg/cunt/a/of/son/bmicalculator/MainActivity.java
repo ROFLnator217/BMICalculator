@@ -47,54 +47,56 @@ public class MainActivity extends AppCompatActivity {
                 String w = etWeight.getText().toString().trim();
                 String h = etHeight.getText().toString().trim();
 
-                Float weight = Float.parseFloat(w);
-                Float height = Float.parseFloat(h);
-
                 if ((w.equalsIgnoreCase("")) || (h.equalsIgnoreCase(""))) {
                     Toast.makeText(MainActivity.this,
                             "Weight or Height cannot be empty!", Toast.LENGTH_LONG).show();
                 }
-                else if (weight < 2 || weight > 400) {
-                    Toast.makeText(MainActivity.this,
-                            "Weight limit between 2 and 400 kilograms!", Toast.LENGTH_LONG).show();
-                }
-                else if (height < 0.4 || height > 3) {
-                    Toast.makeText(MainActivity.this,
-                            "Height limit between 0.4 and 3 metres!", Toast.LENGTH_LONG).show();
-                }
                 else {
-                    Float bmi = weight / (height * height);
+                    Float weight = Float.parseFloat(w);
+                    Float height = Float.parseFloat(h);
 
-                    String result = String.format("%s%.2f",getResources().getString(R.string.lastbmi),bmi);
-                    Calendar now = Calendar.getInstance();
-                    String datetime = String.format("%s%d/%d/%d %d:%02d",
-                            getResources().getString(R.string.lastdate),
-                            now.get(Calendar.DAY_OF_MONTH),
-                            now.get(Calendar.MONTH),
-                            now.get(Calendar.YEAR),
-                            now.get(Calendar.HOUR_OF_DAY),
-                            now.get(Calendar.MINUTE));
-
-                    String state = "";
-                    if (bmi < 18.5) {
-                        state = "You are underweight!";
+                    if (weight < 2 || weight > 400) {
+                        Toast.makeText(MainActivity.this,
+                                "Weight limit between 2 and 400 kilograms!", Toast.LENGTH_LONG).show();
                     }
-                    else if (bmi < 25) {
-                        state = "Your BMI is normal.";
-                    }
-                    else if (bmi < 30) {
-                        state = "You are overweight!";
-                    }
-                    else if (bmi > 30) {
-                        state = "You are obese!";
+                    else if (height < 0.4 || height > 3) {
+                        Toast.makeText(MainActivity.this,
+                                "Height limit between 0.4 and 3 metres!", Toast.LENGTH_LONG).show();
                     }
                     else {
-                        state = "Unable to determine your BMI.";
-                    }
+                        Float bmi = weight / (height * height);
 
-                    tvDate.setText(datetime);
-                    tvBMI.setText(result);
-                    tvStatement.setText(state);
+                        String result = String.format("%s%.2f",getResources().getString(R.string.lastbmi),bmi);
+                        Calendar now = Calendar.getInstance();
+                        String datetime = String.format("%s%d/%d/%d %d:%02d",
+                                getResources().getString(R.string.lastdate),
+                                now.get(Calendar.DAY_OF_MONTH),
+                                now.get(Calendar.MONTH),
+                                now.get(Calendar.YEAR),
+                                now.get(Calendar.HOUR_OF_DAY),
+                                now.get(Calendar.MINUTE));
+
+                        String state = "";
+                        if (bmi < 18.5) {
+                            state = "You are underweight!";
+                        }
+                        else if (bmi < 25) {
+                            state = "Your BMI is normal.";
+                        }
+                        else if (bmi < 30) {
+                            state = "You are overweight!";
+                        }
+                        else if (bmi >= 30) {
+                            state = "You are obese!";
+                        }
+                        else {
+                            state = "Unable to determine your BMI.";
+                        }
+
+                        tvDate.setText(datetime);
+                        tvBMI.setText(result);
+                        tvStatement.setText(state);
+                    }
                 }
             }
         });
